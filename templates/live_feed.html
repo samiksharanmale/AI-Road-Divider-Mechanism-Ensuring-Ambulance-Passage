@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Feed with Lane Detection</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #24305E, #A8D0E6);
+            color: #F8E9A1;
+            text-align: center;
+        }
+
+        header {
+            background: #374785;
+            color: #F8E9A1;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+
+        main {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        section {
+            background: white;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .notifications-section, .lane-info-section {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .info-box {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            width: 45%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-box h2 {
+            font-size: 1.5rem;
+            color: #374785;
+            margin-bottom: 1rem;
+        }
+
+        .info-box p {
+            font-size: 1.1rem;
+            color: #374785;
+        }
+
+        .live-feed img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: #374785;
+            color: #F8E9A1;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        #lane-detection-status, #notifications {
+            font-size: 1.1rem;
+            color: #374785;
+            background: #f9f9f9;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            height: 150px;
+            overflow-y: auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #lane-detection-status p, #notifications p {
+            margin: 0.5rem 0;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Live Feed with Lane Detection</h1>
+    </header>
+    <main>
+        <!-- Live Feed Section -->
+        <section class="live-feed">
+            <h2>Live Dashcam Feed</h2>
+            <div class="watermark">Live Lane Detection</div>
+            <img src="/live_feed" alt="Live feed">
+        </section>
+
+        <div class="notifications-section">
+            <!-- Lane Detection Section -->
+            <div class="info-box">
+                <h2>Live Lane Information</h2>
+                <div id="lane-detection-status">
+                    <p>Initializing lane detection...</p>
+                </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div class="info-box">
+                <h2>Notifications</h2>
+                <div id="notifications">
+                    <p>Waiting for updates...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 AI Road Divider Mechanism. All Rights Reserved.</p>
+    </footer>
+    <script>
+        // Simulate live lane detection data
+        function updateLaneInfo() {
+            const laneInfo = document.getElementById('lane-detection-status');
+            const randomLaneData = [
+                'Lane 1: Clear',
+                'Lane 2: Congested',
+                'Lane 3: Blocked',
+                'Lane 4: Ambulance Detected',
+                'Lane 5: Partial Obstruction',
+            ];
+            const randomIndex = Math.floor(Math.random() * randomLaneData.length);
+            const newLaneInfo = `<p>${randomLaneData[randomIndex]}</p>`;
+            laneInfo.innerHTML = newLaneInfo;
+        }
+
+        // Simulate notifications
+        function updateNotifications() {
+            const notifications = document.getElementById('notifications');
+            const randomNotifications = [
+                'Ambulance approaching Lane 2.',
+                'Heavy traffic detected on Lane 3.',
+                'Clear path created for emergency vehicle.',
+                'Lane priority shifted to Lane 4.',
+                'Intersection ahead cleared for ambulance.',
+            ];
+            const randomIndex = Math.floor(Math.random() * randomNotifications.length);
+            const newNotification = `<p>${randomNotifications[randomIndex]}</p>`;
+            notifications.insertAdjacentHTML('beforeend', newNotification);
+
+            // Scroll to the latest notification
+            notifications.scrollTop = notifications.scrollHeight;
+        }
+
+        // Start updates immediately
+        window.onload = () => {
+            setInterval(updateLaneInfo, 2000); // Update lane info every 2 seconds
+            setInterval(updateNotifications, 3000); // Update notifications every 3 seconds
+        };
+    </script>
+</body>
+</html>

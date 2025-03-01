@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #24305E, #A8D0E6);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .info {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        #map {
+            width: 800px;
+            height: 400px;
+            margin: 0 auto;
+            border: 2px solid white;
+            border-radius: 8px;
+        }
+
+        .live-feed-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #F76C6C;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .live-feed-button:hover {
+            background-color: #D9534F;
+        }
+
+        #traffic-status {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .low-traffic {
+            background-color: #4CAF50;
+        }
+
+        .moderate-traffic {
+            background-color: #FF9800;
+        }
+
+        .high-traffic {
+            background-color: #F44336;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Simulation Between Locations</h1>
+    <div class="info">
+        <p><strong>Start Location:</strong> {{ start_location }}</p>
+        <p><strong>Destination:</strong> {{ destination }}</p>
+        <p><strong>Distance:</strong> {{ distance }}</p>
+        <p><strong>Estimated Time:</strong> {{ duration }}</p>
+    </div>
+
+    <div id="map"></div>
+
+    <div id="traffic-status" class="low-traffic">Fetching traffic status...</div>
+
+    
+    {% if session['driver_id'] %}
+    <!-- Only show for logged-in drivers -->
+    <button class="live-feed-button" onclick="startLiveFeed()">Start Live Feed</button>
+    {% if 'user_id' in session %}
+        <form action="{{ url_for('request_ambulance') }}" method="POST">
+            <input type="hidden" name="user_id" value="{{ session['user_id'] }}">
+            <input type="hidden" name="start_location" value="{{ session.get('start_location', '') }}">
+            <input type="hidden" name="end_location" value="{{ session.get('end_location', '') }}">
+            <button type="submit">Request an Ambulance</button>
+        </form>
+    {% endif %}
+
+<script>
+    function startLiveFeed() {
+        alert("Starting live feed..."); 
+        window.location.href = "/live_feed"; // Redirects to the live feed page
+    }
+
+    function requestAmbulance() {
+        alert("Requesting an ambulance...");
+        window.location.href = "/request_ambulance"; // Redirects to request page
+    }
+</script>
+
+    <script>
+        function initMap() {
+            const startLocation = "{{ start_location }}";
+            const destination = "{{ destination }}";
+
+            const directionsService = new google.maps.DirectionsService();
+            const directionsRenderer = new google.maps.DirectionsRenderer();
+
+            const map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: { lat: 20.011, lng: 73.789 }  // Default to Nashik region
+            });
+
+            directionsRenderer.setMap(map);
+
+            const request = {
+                origin: startLocation,
+                destination: destination,
+                travelMode: 'DRIVING'
+            };
+
+            directionsService.route(request, function(result, status) {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(result);
+                    
+                    // Extract distance and duration for traffic analysis
+                    const leg = result.routes[0].legs[0];
+                    const distanceText = leg.distance.text;
+                    const durationText = leg.duration.text;
+
+                    // Parse distance and duration values
+                    const distanceValue = parseFloat(leg.distance.value) / 1000;  // in km
+                    const durationValue = parseFloat(leg.duration.value) / 60;  // in minutes
+
+                    // Calculate traffic severity based on duration-to-distance ratio
+                    const ratio = durationValue / distanceValue;
+                    let trafficStatusText = "Traffic is low. You can proceed without issues.";
+                    let statusClass = "low-traffic";
+
+                    if (ratio > 2 && ratio <= 3.5) {
+                        trafficStatusText = "Traffic is moderate. Be cautious on the way.";
+                        statusClass = "moderate-traffic";
+                    } else if (ratio > 3.5) {
+                        trafficStatusText = "Heavy traffic detected. Expect delays.";
+                        statusClass = "high-traffic";
+                    }
+
+                    // Update the traffic status display
+                    const trafficStatusDiv = document.getElementById('traffic-status');
+                    trafficStatusDiv.textContent = trafficStatusText;
+                    trafficStatusDiv.className = statusClass;
+                } else {
+                    alert("Could not display directions: " + status);
+                }
+            });
+        }
+
+        function startLiveFeed() {
+            window.location.href = "/live_feed";  // Redirect to the live feed route
+        }
+    </script>
+
+    <!-- Google Maps API -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5liXKSRtFhif83lbqxoJYeS-vb1gqtSo&callback=initMap">
+    </script>
+</body>
+</html>

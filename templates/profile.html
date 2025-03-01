@@ -1,0 +1,12 @@
+<h2>Your Requests</h2>
+<ul>
+    {% for request in user_requests %}
+        <li>Requested on: {{ request.time }} 
+            <form action="{{ url_for('send_message') }}" method="post">
+                <input type="hidden" name="request_id" value="{{ request.id }}">
+                <input type="text" name="message" placeholder="Send Emergency Message" required>
+                <button type="submit">Send</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>

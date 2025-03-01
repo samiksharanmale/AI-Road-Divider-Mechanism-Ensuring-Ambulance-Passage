@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - AI Road Divider Mechanism</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #24305E, #A8D0E6);
+            color: #F8E9A1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #F76C6C;
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        section h2 {
+            color: #374785;
+            margin-bottom: 1rem;
+        }
+
+        #notification-feed {
+            margin-top: 1rem;
+            background: #f4f4f9;
+            padding: 1rem;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #notification-feed p {
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+            background: #F76C6C;
+            color: white;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s;
+        }
+
+        footer {
+            background: #374785;
+            color: white;
+            padding: 1rem;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            section {
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            #notification-feed p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Live Notifications</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Latest Alerts</h2>
+            <div id="notification-feed">
+                <!-- Notifications dynamically inserted here -->
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 AI Road Divider Mechanism. All Rights Reserved.</p>
+    </footer>
+    <script>
+        // Simulate notifications
+        function generateNotification() {
+            const notificationFeed = document.getElementById('notification-feed');
+            const messages = [
+                'Ambulance detected on Lane 2.',
+                'Traffic cleared for Ambulance ID: A123.',
+                'Lane 3 blocked. Alert sent to authorities.',
+                'Ambulance reaching destination in 3 minutes.',
+                'Priority route activated for Lane 4.',
+                'Heavy traffic detected at intersection B.'
+            ];
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const notification = document.createElement('p');
+            notification.textContent = messages[randomIndex];
+            notificationFeed.appendChild(notification);
+
+            // Auto-scroll to the latest notification
+            notificationFeed.scrollTop = notificationFeed.scrollHeight;
+        }
+
+        // Generate a new notification every 3 seconds
+        setInterval(generateNotification, 3000);
+    </script>
+</body>
+</html>

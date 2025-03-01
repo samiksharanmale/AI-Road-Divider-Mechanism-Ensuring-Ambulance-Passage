@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Road Divider Mechanism</title>
+    <style>
+        /* General Styles */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #F8E9A1; /* Light Yellow */
+            color: #24305E; /* Dark Blue */
+        }
+
+        header {
+            background: #24305E; /* Dark Blue Header */
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #A8D0E6; /* Light Blue */
+            margin-top: 0.5rem;
+        }
+
+        nav {
+            margin-top: 1rem;
+        }
+
+        nav a {
+            color: #F8E9A1;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #F76C6C; /* Coral Red */
+        }
+
+        main {
+            padding: 4rem 2rem;
+        }
+
+        section {
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 900px;
+            background: #A8D0E6; /* Light Blue Section Background */
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            color: #24305E; /* Dark Blue for Headings */
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #374785; /* Medium Blue */
+        }
+
+        button {
+            background: linear-gradient(90deg, #F76C6C, #374785);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #374785, #F76C6C);
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            background: #24305E; /* Footer Matches the Header */
+            color: #F8E9A1;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>AI Road Divider Mechanism</h1>
+        <h2>Ensuring Priority Passage for Emergency Vehicles</h2>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/try_now">Try Now</a>
+        
+            {% if session['user_id'] %}
+                <a href="/profile">Profile</a>
+                <a href="/user_logout">Logout</a>
+            {% elif session['driver_id'] %}
+                <a href="/driver_dashboard">Driver Dashboard</a>
+                <a href="/driver_logout">Logout</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/signup">Sign Up</a>
+            {% endif %}
+        </nav>
+        
+        
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section>
+            <h2>Welcome to the AI Road Divider Mechanism</h2>
+            <p>
+                Revolutionizing emergency response with advanced AI technology. Our system is designed to create smarter roads by enabling automatic traffic management and ensuring priority passage for emergency vehicles like ambulances.
+            </p>
+            <p>
+                With real-time lane detection and traffic analysis, we help save precious time when every second counts.
+            </p>
+            <button onclick="location.href='/try_now'">Try Now</button>
+        </section>
+    
+        
+        <!-- How It Works Section -->
+        <section>
+            <h2>How It Works</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 2rem;">
+                <!-- Icon with Description -->
+                <div style="flex: 1; max-width: 250px; text-align: center;">
+                    <img src="https://img.icons8.com/ios-filled/100/24305E/video.png" alt="Dashcam Icon" style="width: 80px; margin-bottom: 1rem;">
+                    <h3 style="color: #24305E;">Analyze Dashcam Footage</h3>
+                    <p style="color: #374785;">Our system processes live dashcam footage to detect lanes and traffic conditions.</p>
+                </div>
+                <div style="flex: 1; max-width: 250px; text-align: center;">
+                    <img src="https://img.icons8.com/ios-filled/100/24305E/traffic-light--v1.png" alt="Traffic Icon" style="width: 80px; margin-bottom: 1rem;">
+                    <h3 style="color: #24305E;">Prioritize Routes</h3>
+                    <p style="color: #374785;">Automatically prioritize lanes for emergency vehicles to ensure faster arrival.</p>
+                </div>
+            </div>
+            <button onclick="location.href='/try_now'" style="margin-top: 2rem;">Learn More</button>
+        </section>
+    
+        <!-- Benefits Section -->
+        <section>
+            <h2>Why Choose Us?</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; margin-top: 2rem;">
+                <!-- Feature 1 -->
+                <div style="flex: 1; max-width: 300px; text-align: center;">
+                    <img src="https://img.icons8.com/ios-filled/100/24305E/artificial-intelligence.png" alt="AI Icon" style="width: 80px; margin-bottom: 1rem;">
+                    <h3 style="color: #24305E;">AI-Powered Technology</h3>
+                    <p style="color: #374785;">Leverage cutting-edge artificial intelligence for faster decision-making.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div style="flex: 1; max-width: 300px; text-align: center;">
+                    <img src="https://img.icons8.com/ios-filled/100/24305E/speed.png" alt="Speed Icon" style="width: 80px; margin-bottom: 1rem;">
+                    <h3 style="color: #24305E;">Save Precious Time</h3>
+                    <p style="color: #374785;">Every second matters. Ensure faster arrival at destinations with optimized traffic management.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div style="flex: 1; max-width: 300px; text-align: center;">
+                    <img src="https://img.icons8.com/ios-filled/100/24305E/connection-status-off.png" alt="Seamless Integration Icon" style="width: 80px; margin-bottom: 1rem;">
+                    <h3 style="color: #24305E;">Seamless Integration</h3>
+                    <p style="color: #374785;">Easily integrate with existing traffic systems and devices for real-time results.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 AI Road Divider Mechanism. All Rights Reserved.</p>
+    </footer>
+    <script>
+        // Simulate new notifications
+        function addNotification() {
+            const notificationFeed = document.getElementById('notification-feed');
+            const newNotifications = [
+                'Ambulance detected on Lane 3.',
+                'Traffic update: Lane 1 is clear.',
+                'Emergency detected near traffic light B.'
+            ];
+            const randomIndex = Math.floor(Math.random() * newNotifications.length);
+            const newNotification = document.createElement('p');
+            newNotification.textContent = newNotifications[randomIndex];
+            notificationFeed.appendChild(newNotification);
+
+            // Scroll to the latest notification
+            notificationFeed.scrollTop = notificationFeed.scrollHeight;
+        }
+
+        setInterval(addNotification, 5000); // Add a new notification every 5 seconds
+    </script>
+</body>
+</html>

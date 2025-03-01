@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Road Divider Mechanism</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #24305E, #A8D0E6);
+            color: #F8E9A1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            margin-bottom: 1rem;
+            color: #374785;
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #374785;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container button {
+            background: #F76C6C;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .login-container button:hover {
+            background: #374785;
+            transform: scale(1.05);
+        }
+
+        .login-container .driver-btn {
+            background: #F76C6C;
+            margin-top: 1rem;
+        }
+
+        .login-container .driver-btn:hover {
+            background: #F76C6C;
+        }
+
+        .login-container p {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #374785;
+        }
+
+        .login-container a {
+            color: #F76C6C;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .login-container a:hover {
+            color: #374785;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div style="color: red;">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% endwith %}
+
+        <form action="/login" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        
+        <button class="driver-btn" onclick="location.href='/driver-login'">If you're an ambulance driver, click here</button>
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+</body>
+</html>

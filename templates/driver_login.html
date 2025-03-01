@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Login - Ambulance Service</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #24305E, #A8D0E6);
+            color: #F8E9A1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #F76C6C;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #555;
+            text-align: left;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #F76C6C;
+            background: #fff;
+        }
+
+        button {
+            width: 100%;
+            background: #F76C6C;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #D9534F;
+            transform: scale(1.05);
+        }
+
+        .back-link, .signup-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-link a, .signup-link a {
+            color: #24305E;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover, .signup-link a:hover {
+            color: #F76C6C;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Driver Login</h1>
+
+        <!-- Flash message handling -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="error-message">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <form action="/driver-login" method="POST">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter your phone number" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Signup Link -->
+        <div class="signup-link">
+            <p>Don't have an account? <a href="/driver-signup">Sign up here</a></p>
+        </div>
+
+        <!-- Back Link -->
+        <div class="back-link">
+            <p><a href="/">Go Back to Home</a></p>
+        </div>
+    </div>
+</body>
+</html>

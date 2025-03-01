@@ -1,0 +1,28 @@
+<h2>Pending Ambulance Requests</h2>
+<table>
+    <tr>
+        <th>User ID</th>
+        <th>Start Location</th>
+        <th>End Location</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for request in requests %}
+    <tr>
+        <td>{{ request[0] }}</td>
+        <td>{{ request[1] }}</td>
+        <td>{{ request[2] }}</td>
+        <td>{{ request[3] }}</td>
+        <td>
+            {% if request[3] == "pending" %}
+                <form action="{{ url_for('accept_request') }}" method="POST">
+                    <input type="hidden" name="user_id" value="{{ request[0] }}">
+                    <button type="submit">Accept</button>
+                </form>
+            {% else %}
+                <span>Accepted</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
